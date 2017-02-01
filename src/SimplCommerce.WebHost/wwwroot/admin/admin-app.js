@@ -1,6 +1,7 @@
 ﻿/*global angular*/
 (function () {
     var adminApp = angular.module('simplAdmin', [
+        'ui.tree',
         'ui.router',
         'ngMaterial',
         'ngMessages',

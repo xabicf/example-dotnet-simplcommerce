@@ -1,4 +1,5 @@
 ﻿using SimplCommerce.Module.Cms.Models;
+using System.Collections.Generic;
 
 namespace SimplCommerce.Module.Cms.Services
 {
@@ -9,5 +10,7 @@ namespace SimplCommerce.Module.Cms.Services
         void Update(Page page);
 
         void Delete(Page page);
+
+        List<Page> GetAll();
     }
 }

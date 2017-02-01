@@ -1,15 +1,120 @@
 
 <div ng-controller="MenuManagementCtrl" class="row">
+    <style>
+        .btn {
+            margin-right: 8px;
+        }
+
+        .angular-ui-tree-handle {
+            background: #f8faff;
+            border: 1px solid #dae2ea;
+            color: #7c9eb2;
+            padding: 10px 10px;
+        }
+
+            .angular-ui-tree-handle:hover {
+                color: #438eb9;
+                background: #f4f6f7;
+                border-color: #dce2e8;
+            }
+
+        .angular-ui-tree-placeholder {
+            background: #f0f9ff;
+            border: 2px dashed #bed2db;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        tr.angular-ui-tree-empty {
+            height: 100px;
+        }
+
+        .group-title {
+            background-color: #687074 !important;
+            color: #FFF !important;
+        }
+
+
+        /* --- Tree --- */
+        .tree-node {
+            border: 1px solid #dae2ea;
+            background: #f8faff;
+            color: #7c9eb2;
+        }
+
+        .nodrop {
+            background-color: #f2dede;
+        }
+
+        .tree-node-content {
+            margin: 10px;
+        }
+
+        .tree-handle {
+            padding: 10px;
+            background: #428bca;
+            color: #FFF;
+            margin-right: 10px;
+        }
+
+        .angular-ui-tree-handle:hover {
+        }
+
+        .angular-ui-tree-placeholder {
+            background: #f0f9ff;
+            border: 2px dashed #bed2db;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+    </style>
+    <script type="text/ng-template" id="nodes_renderer.html">
+        <div ui-tree-handle class="tree-node tree-node-content">
+            <a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)">
+                <span class="glyphicon"
+                      ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}">
+                </span>
+            </a>
+            {{node.name}}
+            <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+            <!--<a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>-->
+        </div>
+        <ol ui-tree-nodes="" ng-model="node.nodes">
+            <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
+            </li>
+        </ol>
+    </script>
     <ul class="nav nav-tabs">
         <li class="active">
             <a target="_self" href="#edit-menu" data-toggle="tab">Edit Menu</a>
         </li>
-        <!--<li>
-            <a href="#manage-locations" data-toggle="tab">Manage Locations</a>
-        </li>-->
+        <li>
+            <a target="_self" href="#manage-locations" data-toggle="tab">Manage Locations</a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active in" id="edit-menu">
+            <div class="panel panel-default col-md-12">
+                <div class="panel-body">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <label class="control-label">Select a menu to edit</label>
+                            <select class="form-control">
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="mercedes">Mercedes</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                            <button class="btn btn-primary">Select</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-3">
                 <uib-accordion>
                     <div uib-accordion-group class="panel-default" is-open="status.isCategoriesOpen">
@@ -26,13 +131,10 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active in" id="categories-view-all">
-                                <div class="checkbox">
-                                    <label><input type="checkbox" value="">Option 1</label>
+                                <div ng-repeat="category in categoryMenuItems" class="checkbox">
+                                    <label><input ng-model="category.isChecked" type="checkbox" value="{{category.id}}">{{category.name}}</label>
                                 </div>
-                                <div class="checkbox">
-                                    <label><input type="checkbox" value="">Option 2</label>
-                                </div>
-                                <button class="btn btn-primary pull-right">Add to Menu</button>
+                                <button ng-click="addToMenu('Category')" class="btn btn-primary pull-right">Add to Menu</button>
                             </div>
                         </div>
                     </div>
@@ -52,33 +154,36 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active in" id="pages-view-all">
-                                <div class="checkbox">
-                                    <label><input type="checkbox" value="">Option 1</label>
+                                <div ng-repeat="page in pageMenuItems" class="checkbox">
+                                    <label><input type="checkbox" value="{{page.id}}">{{page.name}}</label>
                                 </div>
-                                <div class="checkbox">
-                                    <label><input type="checkbox" value="">Option 2</label>
-                                </div>
-                                <div class="checkbox disabled">
-                                    <label><input type="checkbox" value="" disabled>Option 3</label>
-                                </div>
+                                <button class="btn btn-primary pull-right">Add to Menu</button>
                             </div>
                         </div>
                     </div>
                 </uib-accordion>
-                <uib-accordion>
+                <!--<uib-accordion>
                     <div uib-accordion-group class="panel-default" is-open="status.isPostsOpen">
                         <uib-accordion-heading>
                             Products <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isPostsOpen, 'glyphicon-chevron-right': !status.isPostsOpen}"></i>
                         </uib-accordion-heading>
                         Empty Content
                     </div>
-                </uib-accordion>
+                </uib-accordion>-->
                 <uib-accordion>
                     <div uib-accordion-group class="panel-default" is-open="status.isCustomLinksOpen">
                         <uib-accordion-heading>
                             Custom Links <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomLinksOpen, 'glyphicon-chevron-right': !status.isCustomLinksOpen}"></i>
                         </uib-accordion-heading>
-
+                        <div class="form-group">
+                            <label class="control-label" for="custom-link-url">URL</label>
+                            <input class="form-control" id="custom-link-url" ng-model="customLinkUrl" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="pwd">Navigation Label</label>
+                            <input class="form-control" id="custom-link-text" ng-model="customLinkText" />
+                        </div>
+                        <button ng-click="addToMenu('Custom Link')" type="button" class="btn btn-primary form-group pull-right">Add To Menu</button>
                     </div>
                 </uib-accordion>
             </div>
@@ -97,7 +202,11 @@
                         <div class="panel-body">
                             <label>Menu Structure</label>
                             <p>Drag each item into the order you prefer. Click the arrow on the right of the item to reveal additional configuration options.</p>
-
+                            <div ui-tree="treeOptions">
+                                <ol ui-tree-nodes ng-model="menuNodes">
+                                    <li ng-repeat="node in menuNodes" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
                 </form>

@@ -2,7 +2,7 @@
 (function () {
     'use strict';
 
-    angular.module('simplAdmin.cms', ['simplAdmin.catalog'])
+    angular.module('simplAdmin.cms', ['simplAdmin'])
         .config(['$stateProvider', function ($stateProvider) {
             $stateProvider
                 .state('page', {

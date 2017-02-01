@@ -7,11 +7,12 @@
     /* @ngInject */
     function MenuService($http) {
         var service = {
+            getMenuViewModel: getMenuViewModel
         };
         return service;
 
-        function getPage(id) {
-            return $http.get('api/pages/' + id);
+        function getMenuViewModel() {
+            return $http.get('api/menu');
         }
     }
 })();

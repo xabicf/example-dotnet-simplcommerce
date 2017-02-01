@@ -1,4 +1,7 @@
-﻿using SimplCommerce.Infrastructure.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Cms.Models;
 using SimplCommerce.Module.Core.Services;
 
@@ -44,6 +47,10 @@ namespace SimplCommerce.Module.Cms.Services
             _pageRepository.Remove(page);
             _entityService.Remove(page.Id, PageEntityTypeId);
             _pageRepository.SaveChange();
+        }
+        public List<Page> GetAll()
+        {
+            return _pageRepository.Query().Where(x => !x.IsDeleted).ToList();
         }
     }
 }

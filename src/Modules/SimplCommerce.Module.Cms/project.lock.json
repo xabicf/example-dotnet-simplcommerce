@@ -3005,6 +3005,21 @@
           "netstandard1.6/SimplCommerce.Infrastructure.dll": {}
         }
       },
+      "SimplCommerce.Module.Catalog/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v1.6",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "SimplCommerce.Infrastructure": "1.0.0",
+          "SimplCommerce.Module.Core": "1.0.0"
+        },
+        "compile": {
+          "netstandard1.6/SimplCommerce.Module.Catalog.dll": {}
+        },
+        "runtime": {
+          "netstandard1.6/SimplCommerce.Module.Catalog.dll": {}
+        }
+      },
       "SimplCommerce.Module.Core/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
@@ -8391,6 +8406,11 @@
       "path": "../../SimplCommerce.Infrastructure/project.json",
       "msbuildProject": "../../SimplCommerce.Infrastructure/SimplCommerce.Infrastructure.xproj"
     },
+    "SimplCommerce.Module.Catalog/1.0.0": {
+      "type": "project",
+      "path": "../SimplCommerce.Module.Catalog/project.json",
+      "msbuildProject": "../SimplCommerce.Module.Catalog/SimplCommerce.Module.Catalog.xproj"
+    },
     "SimplCommerce.Module.Core/1.0.0": {
       "type": "project",
       "path": "../SimplCommerce.Module.Core/project.json",
@@ -8401,6 +8421,7 @@
     "": [
       "NETStandard.Library >= 1.6.1",
       "SimplCommerce.Infrastructure >= 1.0.0-*",
+      "SimplCommerce.Module.Catalog >= 1.0.0-*",
       "SimplCommerce.Module.Core >= 1.0.0-*"
     ],
     ".NETStandard,Version=v1.6": []
