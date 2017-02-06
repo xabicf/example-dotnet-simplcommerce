@@ -155,9 +155,9 @@
                         <div class="tab-content">
                             <div class="tab-pane active in" id="pages-view-all">
                                 <div ng-repeat="page in pageMenuItems" class="checkbox">
-                                    <label><input type="checkbox" value="{{page.id}}">{{page.name}}</label>
+                                    <label><input ng-model="page.isChecked" type="checkbox" value="{{page.id}}">{{page.name}}</label>
                                 </div>
-                                <button class="btn btn-primary pull-right">Add to Menu</button>
+                                <button ng-click="addToMenu('Page')" class="btn btn-primary pull-right">Add to Menu</button>
                             </div>
                         </div>
                     </div>
@@ -170,7 +170,7 @@
                         Empty Content
                     </div>
                 </uib-accordion>-->
-                <uib-accordion>
+                <!--<uib-accordion>
                     <div uib-accordion-group class="panel-default" is-open="status.isCustomLinksOpen">
                         <uib-accordion-heading>
                             Custom Links <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomLinksOpen, 'glyphicon-chevron-right': !status.isCustomLinksOpen}"></i>
@@ -185,18 +185,18 @@
                         </div>
                         <button ng-click="addToMenu('Custom Link')" type="button" class="btn btn-primary form-group pull-right">Add To Menu</button>
                     </div>
-                </uib-accordion>
+                </uib-accordion>-->
             </div>
             <div class="col-md-9">
-                <form id="update-nav-menu">
+                <form id="update-nav-menu" name="updateNavMenu">
                     <div class="panel panel-default">
                         <div class="panel-heading panel-default">
                             <div class="form-inline">
                                 <div class="form-group">
                                     <label for="menuName">Menu Name</label>
-                                    <input class="form-control" id="menuName" />
+                                    <input ng-model="menuName" class="form-control" id="menuName" required/>
                                 </div>
-                                <button type="button" class="btn btn-primary form-group pull-right">Save Menu</button>
+                                <button ng-click="saveMenu()" type="button" class="btn btn-primary form-group pull-right" ng-disabled="updateNavMenu.$invalid">Save Menu</button>
                             </div>
                         </div>
                         <div class="panel-body">

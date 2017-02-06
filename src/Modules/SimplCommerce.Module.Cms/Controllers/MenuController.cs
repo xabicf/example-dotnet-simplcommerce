@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Cms.Models;
-using SimplCommerce.Module.Cms.Services;
+using SimplCommerce.Module.Cms.ViewModels;
+using SimplCommerce.Module.Core.Models;
 using System.Linq;
 
 namespace SimplCommerce.Module.Cms.Controllers
@@ -15,20 +15,37 @@ namespace SimplCommerce.Module.Cms.Controllers
     {
         private IRepository<Category> _categoryRepository;
         private IRepository<Page> _pageRepository;
-        public MenuController(IRepository<Category> categoryRepository, IRepository<Page> pageRepository)
+        private IRepository<Brand> _brandRepository;
+        private IRepository<Entity> _entityRepository;
+        private IRepository<EntityType> _entityTypeRepository;
+        public MenuController(IRepository<Category> categoryRepository, 
+            IRepository<Page> pageRepository,
+            IRepository<Brand> brandRepository,
+            IRepository<Entity> entityRepository,
+            IRepository<EntityType> entityTypeRepository)
         {
             this._categoryRepository = categoryRepository;
             this._pageRepository = pageRepository;
+            this._brandRepository = brandRepository;
+            this._entityRepository = entityRepository;
+            this._entityTypeRepository = entityTypeRepository;
         }
         [HttpGet()]
-        public JsonResult Get()
+        public IActionResult Get()
         {
-            var result = new
-            {
-                Categories = _categoryRepository.Query().Where(x=>!x.IsDeleted).Select(x=>new CategoryMenuItem { Id = x.Id,Name=x.Name}),
-                Pages = _pageRepository.Query().Where(x => !x.IsDeleted).Select(x => new PageMenuItem { Id = x.Id, Name = x.Name }),
-            };
-            return Json(result);
+            var entities = from e in _entityRepository.Query()
+                      join et in _entityTypeRepository.Query() on e.EntityTypeId equals et.Id
+                      where (e.EntityTypeId == (int)EntityTypes.Brand 
+                      || e.EntityTypeId == (int)EntityTypes.Page 
+                      || e.EntityTypeId == (int)EntityTypes.Category)
+                      select new { Id = e.Id, EntityTypeId = e.EntityTypeId, Type = et.Name };
+            var groupedEntities = (entities.GroupBy(x => x.Type, p => new { Id = p.Id, Type = p.Type },
+                (key, g) => new
+                {
+                    Key = key,
+                    Entities = g.ToList()
+                })).ToList();
+            return Json(groupedEntities);
         }
     }
 }
