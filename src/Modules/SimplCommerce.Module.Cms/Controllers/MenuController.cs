@@ -18,7 +18,7 @@ namespace SimplCommerce.Module.Cms.Controllers
         private IRepository<Brand> _brandRepository;
         private IRepository<Entity> _entityRepository;
         private IRepository<EntityType> _entityTypeRepository;
-        public MenuController(IRepository<Category> categoryRepository, 
+        public MenuController(IRepository<Category> categoryRepository,
             IRepository<Page> pageRepository,
             IRepository<Brand> brandRepository,
             IRepository<Entity> entityRepository,
@@ -33,18 +33,21 @@ namespace SimplCommerce.Module.Cms.Controllers
         [HttpGet()]
         public IActionResult Get()
         {
-            var entities = from e in _entityRepository.Query()
-                      join et in _entityTypeRepository.Query() on e.EntityTypeId equals et.Id
-                      where (e.EntityTypeId == (int)EntityTypes.Brand 
-                      || e.EntityTypeId == (int)EntityTypes.Page 
+            var entities = (from e in _entityRepository.Query()
+                            join et in _entityTypeRepository.Query() on e.EntityTypeId equals et.Id
+                            join c in _categoryRepository.Query() on new { e.EntityId, e.EntityTypeId } equals new { EntityId = c.Id, EntityTypeId = (long)EntityTypes.Category } into cTemp
+                            from c in cTemp.DefaultIfEmpty()
+                            join b in _brandRepository.Query() on new { e.EntityId, e.EntityTypeId } equals new { EntityId = b.Id, EntityTypeId = (long)EntityTypes.Brand } into bTemp
+                            from b in bTemp.DefaultIfEmpty()
+                            join p in _pageRepository.Query() on new { e.EntityId, e.EntityTypeId } equals new { EntityId = p.Id, EntityTypeId = (long)EntityTypes.Page } into pTemp
+                            from p in pTemp.DefaultIfEmpty()
+                            where (e.EntityTypeId == (int)EntityTypes.Brand
+                      || e.EntityTypeId == (int)EntityTypes.Page
                       || e.EntityTypeId == (int)EntityTypes.Category)
-                      select new { Id = e.Id, EntityTypeId = e.EntityTypeId, Type = et.Name };
-            var groupedEntities = (entities.GroupBy(x => x.Type, p => new { Id = p.Id, Type = p.Type },
-                (key, g) => new
-                {
-                    Key = key,
-                    Entities = g.ToList()
-                })).ToList();
+                            select new { Id = e.Id, EntityTypeId = e.EntityTypeId, EntityType = et.Name, Name = c!=null ?c.Name:b!=null?b.Name:p!=null?p.Name:""}).ToList();
+            var groupedEntities = (from e in entities
+                                  group e by e.EntityType into g
+                                  select new { Type = g.Key, Entities = g.ToList() }).ToList();
             return Json(groupedEntities);
         }
     }

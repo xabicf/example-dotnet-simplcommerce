@@ -105,10 +105,10 @@
                         <div class="form-group">
                             <label class="control-label">Select a menu to edit</label>
                             <select class="form-control">
-                                <option value="volvo">Volvo</option>
+                                <!--<option value="volvo">Volvo</option>
                                 <option value="saab">Saab</option>
                                 <option value="mercedes">Mercedes</option>
-                                <option value="audi">Audi</option>
+                                <option value="audi">Audi</option>-->
                             </select>
                             <button class="btn btn-primary">Select</button>
                         </div>
@@ -116,7 +116,30 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <uib-accordion>
+                <uib-accordion ng-repeat="menuType in menuTypes">
+                    <div uib-accordion-group class="panel-default" is-open="status[menuType.type]">
+                        <uib-accordion-heading>
+                            {{menuType.type}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status[menuType.type], 'glyphicon-chevron-right': !status[menuType.type] }"></i>
+                        </uib-accordion-heading>
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a target="_self" href="#{{menuType.type}}-view-all" data-toggle="tab">View All</a>
+                            </li>
+                            <li>
+                                <a target="_self" href="#{{menuType.type}}-search" data-toggle="tab">Search</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active in" id="{{menuType.type}}-view-all">
+                                <div ng-repeat="menuItem in menuType.entities" class="checkbox">
+                                    <label><input ng-model="menuItem.isChecked" type="checkbox" value="{{menuItem.id}}">{{menuItem.name}}</label>
+                                </div>
+                                <button ng-click="addToMenu(menuType.type)" class="btn btn-primary pull-right">Add to Menu</button>
+                            </div>
+                        </div>
+                    </div>
+                </uib-accordion>
+                <!--<uib-accordion>
                     <div uib-accordion-group class="panel-default" is-open="status.isCategoriesOpen">
                         <uib-accordion-heading>
                             Categories <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCategoriesOpen, 'glyphicon-chevron-right': !status.isCategoriesOpen}"></i>
@@ -161,7 +184,7 @@
                             </div>
                         </div>
                     </div>
-                </uib-accordion>
+                </uib-accordion>-->
                 <!--<uib-accordion>
                     <div uib-accordion-group class="panel-default" is-open="status.isPostsOpen">
                         <uib-accordion-heading>
@@ -194,7 +217,7 @@
                             <div class="form-inline">
                                 <div class="form-group">
                                     <label for="menuName">Menu Name</label>
-                                    <input ng-model="menuName" class="form-control" id="menuName" required/>
+                                    <input ng-model="menuName" class="form-control" id="menuName" required />
                                 </div>
                                 <button ng-click="saveMenu()" type="button" class="btn btn-primary form-group pull-right" ng-disabled="updateNavMenu.$invalid">Save Menu</button>
                             </div>
