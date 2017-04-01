@@ -18,7 +18,8 @@
         'simplAdmin.search',
         'simplAdmin.reviews',
         'simplAdmin.activityLog',
-        'simplAdmin.vendors'
+        'simplAdmin.vendors',
+        'simplAdmin.news'
     ]);
 
     toastr.options.closeButton = true;
