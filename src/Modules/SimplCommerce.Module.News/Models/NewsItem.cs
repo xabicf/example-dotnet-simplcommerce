@@ -12,5 +12,12 @@ namespace SimplCommerce.Module.News.Models
         public Media ThumbnailImage { get; set; }
 
         public IList<NewsItemCategory> Categories { get; set; } = new List<NewsItemCategory>();
+
+        public void AddNewsItemCategory(NewsItemCategory category)
+        {
+            category.NewsItem = this;
+            Categories.Add(category);
+        }
     }
+    
 }

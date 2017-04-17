@@ -9,8 +9,8 @@
         var vm = this;
         vm.newsCategorys = [];
 
-        vm.getNewsCategorys = function getNewsCategorys() {
-            newsCategoryService.getNewsCategorys().then(function (result) {
+        vm.getNewsCategories = function getNewsCategories() {
+            newsCategoryService.getNewsCategories().then(function (result) {
                 vm.newsCategorys = result.data;
             });
         };
@@ -20,7 +20,7 @@
                 if (result) {
                     newsCategoryService.deleteNewsCategory(newsCategory)
                        .then(function (result) {
-                           vm.getNewsCategorys();
+                           vm.getNewsCategories();
                            toastr.success(newsCategory.name + ' has been deleted');
                        })
                        .catch(function (response) {
@@ -30,6 +30,6 @@
             });
         };
 
-        vm.getNewsCategorys();
+        vm.getNewsCategories();
     }
 })();

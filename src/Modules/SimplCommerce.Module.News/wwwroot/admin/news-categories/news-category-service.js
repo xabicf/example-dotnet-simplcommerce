@@ -11,7 +11,7 @@
             createNewsCategory: createNewsCategory,
             editNewsCategory: editNewsCategory,
             deleteNewsCategory: deleteNewsCategory,
-            getNewsCategorys: getNewsCategorys
+            getNewsCategories: getNewsCategories
         };
         return service;
 
@@ -19,7 +19,7 @@
             return $http.get('api/news-categories/' + id);
         }
 
-        function getNewsCategorys() {
+        function getNewsCategories() {
             return $http.get('api/news-categories');
         }
 
