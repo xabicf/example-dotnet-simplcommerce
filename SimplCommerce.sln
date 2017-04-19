@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C9BFDDC4-5671-47A3-B57D-197C2A51FA8A}"
 EndProject
@@ -41,6 +41,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Vendors", "src\Modules\SimplCommerce.Module.Vendors\SimplCommerce.Module.Vendors.csproj", "{74FBF118-A11C-4E73-909B-7C1A1ED99149}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.News", "src\Modules\SimplCommerce.Module.News\SimplCommerce.Module.News.csproj", "{4FE8CC2E-3DF9-4AE7-A04E-4293FABEE221}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.ProductComparison", "src\Modules\SimplCommerce.Module.ProductComparison\SimplCommerce.Module.ProductComparison.csproj", "{BF5F8809-A780-4E9C-8A1C-E108199AAF2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -208,6 +210,18 @@ Global
 		{4FE8CC2E-3DF9-4AE7-A04E-4293FABEE221}.Release|x64.Build.0 = Release|Any CPU
 		{4FE8CC2E-3DF9-4AE7-A04E-4293FABEE221}.Release|x86.ActiveCfg = Release|Any CPU
 		{4FE8CC2E-3DF9-4AE7-A04E-4293FABEE221}.Release|x86.Build.0 = Release|Any CPU
+		{BF5F8809-A780-4E9C-8A1C-E108199AAF2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF5F8809-A780-4E9C-8A1C-E108199AAF2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF5F8809-A780-4E9C-8A1C-E108199AAF2C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BF5F8809-A780-4E9C-8A1C-E108199AAF2C}.Debug|x64.Build.0 = Debug|Any CPU
+		{BF5F8809-A780-4E9C-8A1C-E108199AAF2C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BF5F8809-A780-4E9C-8A1C-E108199AAF2C}.Debug|x86.Build.0 = Debug|Any CPU
+		{BF5F8809-A780-4E9C-8A1C-E108199AAF2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF5F8809-A780-4E9C-8A1C-E108199AAF2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF5F8809-A780-4E9C-8A1C-E108199AAF2C}.Release|x64.ActiveCfg = Release|Any CPU
+		{BF5F8809-A780-4E9C-8A1C-E108199AAF2C}.Release|x64.Build.0 = Release|Any CPU
+		{BF5F8809-A780-4E9C-8A1C-E108199AAF2C}.Release|x86.ActiveCfg = Release|Any CPU
+		{BF5F8809-A780-4E9C-8A1C-E108199AAF2C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -228,5 +242,6 @@ Global
 		{1A22C68D-BE49-4E94-A0AD-6FD31F54B805} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{74FBF118-A11C-4E73-909B-7C1A1ED99149} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{4FE8CC2E-3DF9-4AE7-A04E-4293FABEE221} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
+		{BF5F8809-A780-4E9C-8A1C-E108199AAF2C} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 	EndGlobalSection
 EndGlobal
