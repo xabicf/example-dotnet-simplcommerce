@@ -1,0 +1,4 @@
+FROM microsoft/dotnet:2-sdk
+
+# Install java
+RUN apt-get update && apt-get install default-jre -y
